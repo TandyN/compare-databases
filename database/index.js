@@ -10,8 +10,8 @@ const oldPool = new Pool({
 });
 
 oldPool.query(`SELECT NOW()`, (err, res) => {
-  console.log(err, res);
-  oldPool.end();
+  if (err) console.log(err);
+  else console.log('Connected to old database');
 });
 
 const newPool = new Pool({
@@ -23,8 +23,8 @@ const newPool = new Pool({
 });
 
 newPool.query(`SELECT NOW()`, (err, res) => {
-  console.log(err, res);
-  newPool.end();
+  if (err) console.log(err);
+  else console.log('Connected to new database');
 });
 
 module.exports = {
