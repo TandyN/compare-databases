@@ -1,1 +1,1 @@
-const { oldPool } = require('./database');
+const { oldPool, newPool } = require('./database');
