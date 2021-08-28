@@ -1,6 +1,6 @@
 # compare-databases
 
-> This program is designed to generate a report on any missing, corrupted, and/or new records comparing an old Postgres 13 database to new one.
+> This program is designed to generate a report on any missing, corrupted, and/or new records comparing an old Postgres 13 database to a new one.
 
 ## Scenario
 
@@ -22,3 +22,20 @@ Below are a list of environmental requirements to run this program.
 
 - Node.js (*developed using Node v14.15.4*)
 - PostgreSQL (*developed using PostgreSQL 13*)
+
+## Instructions
+
+In order to use this program you will need access to an old Postgres 13 database and a new one.
+
+In the root folder of this program, you will find a file called `.example.env`. Please rename this file or create another file named `.env` and replace the fields in `.example.env` to match the credentials of your Postgres 13 databases.
+
+*example file .env*
+```
+PG1_USER='old_db_user'
+PG1_HOST='localhost'
+...
+
+PG2_USER='new_db_user'
+PG2_HOST='localhost'
+...
+```
