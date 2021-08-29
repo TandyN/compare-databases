@@ -16,7 +16,7 @@ You recently migrated data from one database to another. You need to identify if
 - There is only 1 table in both databases.
 - There are not more than 100,000 records in each database.
 - Values in columns are not objects.
-- New columns are not corrupted data in the new database.
+- New columns that did not exist in the old database do not contain corrupted data in the new database.
 
 ## Requirements
 
@@ -41,3 +41,15 @@ PG2_USER='new_db_user'
 PG2_HOST='localhost'
 ...
 ```
+
+You will then need to use the command `npm install` in the root directory to install all dependecies.
+
+Finally, use the command `npm start` in the root directory to generate your reports. The reports should appear in the 'reports' folder.
+
+
+
+The **MissingRecords.csv** file created contains all of the missing rows that the new database is missing from the old database.
+
+The **CorruptRecords.csv** file created contains all of the expected (non-corrupted) values for each primary key that was corrupted.
+
+The **NewRecords.csv file** created contains all of the rows that were not in the old database that are in the new database.
