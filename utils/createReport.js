@@ -1,10 +1,11 @@
 const { ifObjectsContainSameContent } = require('./compareObjects');
 
-const addToCorrupt = (objReport, objCorruptValues, objActualValues, primaryKey) => {
-  objReport.corrupt[primaryKey] = {
-    corruptValues: objCorruptValues,
-    actualValues: objActualValues,
-  };
+const addToCorrupt = (objReport, oldDBObject, newDBObject, primaryKey, differentColumns) => {
+  objReport.corrupt[primaryKey] = { ...oldDBObject[primaryKey] };
+
+  differentColumns.map((colName) => {
+    objReport.corrupt[primaryKey][colName] = newDBObject[primaryKey][colName];
+  });
 };
 
 const addToMissing = (objReport, objMain, primaryKey) => {
