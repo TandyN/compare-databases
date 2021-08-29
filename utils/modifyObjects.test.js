@@ -1,5 +1,5 @@
 const { expect } = require('@jest/globals');
-const { convertArrayToObjectWithKeys } = require('./modifyObjects');
+const { convertArrayToObjectWithKeys, convertObjectToArrayOfObjects } = require('./modifyObjects');
 
 describe('Modify Object Functions', () => {
   describe('convertArrayToObjectWithKeys', () => {
@@ -44,6 +44,26 @@ describe('Modify Object Functions', () => {
       expect(result['a']).toMatchObject({ name: 'John', email: '123' });
       expect(result['b']).toMatchObject({ name: 'Mary', email: '456' });
       expect(result['c']).toMatchObject({ name: 'Sam', email: '789' });
+    });
+  });
+
+  describe('convertObjectToArrayOfObjects', () => {
+    it('should convert object with keys to an array of objects, the key being the second argument and the value being the original primary key', () => {
+      const objectWithKeys = {
+        '1': { name: '1', email: '1' },
+        '2': { name: '2', email: '2' },
+        '3': { name: '3', email: '3' },
+      }
+
+      const expected = [
+        { id: '1', name: '1', email: '1' },
+        { id: '2', name: '2', email: '2' },
+        { id: '3', name: '3', email: '3' },
+      ]
+
+      const convertedObjectWithKeys = convertObjectToArrayOfObjects(objectWithKeys, 'id');
+
+      expect(convertedObjectWithKeys).toEqual(expected);
     });
   });
 });

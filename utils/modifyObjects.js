@@ -11,6 +11,19 @@ const convertArrayToObjectWithKeys = (array, colToKey) => {
   return objectWithKeys;
 }
 
+const convertObjectToArrayOfObjects = (objectWithKeys, nameOfKey) => {
+  let arrayOfObjects = [];
+
+  for (let primaryKey in objectWithKeys) {
+    const newObject = { ...objectWithKeys[primaryKey] };
+    newObject[nameOfKey] = primaryKey;
+    arrayOfObjects.push(newObject);
+  }
+
+  return arrayOfObjects;
+}
+
 module.exports = {
   convertArrayToObjectWithKeys,
+  convertObjectToArrayOfObjects,
 };
