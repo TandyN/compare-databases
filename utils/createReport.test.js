@@ -7,64 +7,23 @@ const {
 
 describe('Report Creating Functions', () => {
   describe('addToCorrupt', () => {
-    it(`should add a key to 'corrupt' key in objReport argument with the value of an object`, () => {
+    it(`should add a key to 'corrupt' key and put in actual values that it should contain`, () => {
+      const oldDBObject = { '1': { name: '1', email: '1' } }
+      const newDBObject = { '1': { name: '1', email: '2', extra: '1' } }
+      const differntColumns = ['extra'];
+
       const reportObject = {
         corrupt: {},
       };
-      const objCorruptValues1 = { name: 'John' };
-      const objActualValues1 = { name: 'Sam' };
-      const primaryKey1 = '1';
 
-      addToCorrupt(reportObject, objCorruptValues1, objActualValues1, primaryKey1)
-
-      expect(Object.keys(reportObject.corrupt)).toEqual(expect.arrayContaining(['1']));
-      expect(Object.keys(reportObject.corrupt).length).toBe(1);
-      expect(typeof reportObject.corrupt['1']).toBe('object');
-      expect(Array.isArray(reportObject.corrupt['1'])).toBe(false);
-
-      const objCorrupt2 = { name: 'Mary' };
-      const objActualValues2 = { name: 'Tom' };
-      const primaryKey2 = '2';
-
-      addToCorrupt(reportObject, objCorrupt2, objActualValues2, primaryKey2)
-
-      expect(Object.keys(reportObject.corrupt)).toEqual(expect.arrayContaining(['1', '2']));
-      expect(Object.keys(reportObject.corrupt).length).toBe(2);
-    });
-
-    it(`should add an object with a corrupt and actual key for each primary key added to 'corrupt' key`, () => {
-      const reportObject = {
-        corrupt: {},
-      };
-      const objCorruptValues1 = { name: 'John', email: '123' };
-      const objActualValues1 = { name: 'Sam', email: '456' };
-      const primaryKey1 = '1';
-
-      addToCorrupt(reportObject, objCorruptValues1, objActualValues1, primaryKey1)
-
-      const objCorrupt2 = { name: 'Mary' };
-      const objActualValues2 = { name: 'Tom' };
-      const primaryKey2 = '2';
-
-      addToCorrupt(reportObject, objCorrupt2, objActualValues2, primaryKey2)
-
-      const expectedResult = {
+      const expected = {
         corrupt: {
-          '1': {
-            corruptValues: { name: 'John', email: '123' },
-            actualValues: { name: 'Sam', email: '456' },
-          },
-          '2': {
-            corruptValues: { name: 'Mary' },
-            actualValues: { name: 'Tom' },
-          },
-        },
+          '1': { name: '1', email: '1', extra: '1' }
+        }
       };
 
-      expect(reportObject.corrupt['1'].corruptValues).toMatchObject(expectedResult.corrupt['1'].corruptValues);
-      expect(reportObject.corrupt['1'].actualValues).toMatchObject(expectedResult.corrupt['1'].actualValues);
-      expect(reportObject.corrupt['2'].corruptValues).toMatchObject(expectedResult.corrupt['2'].corruptValues);
-      expect(reportObject.corrupt['2'].actualValues).toMatchObject(expectedResult.corrupt['2'].actualValues);
+      addToCorrupt(reportObject, oldDBObject, newDBObject, '1', differntColumns);
+      expect(reportObject).toEqual(expected);
     });
   });
 
@@ -157,9 +116,9 @@ describe('Report Creating Functions', () => {
 
       const expectedReportObject = {
         corrupt: {
-          '1': { corruptValues: { email: '2' }, actualValues: { email: '1' } },
-          '2': { corruptValues: { name: '1' }, actualValues: { name: '2' } },
-          '3': { corruptValues: { name: '4', email: '4' }, actualValues: { name: '3', email: '3' } },
+          '1': { name: '1', email: '1' },
+          '2': { name: '2', email: '2' },
+          '3': { name: '3', email: '3' },
         },
         missing: {},
         new: {},
@@ -186,9 +145,9 @@ describe('Report Creating Functions', () => {
 
       const expectedReportObject = {
         corrupt: {
-          '1': { corruptValues: { email: '2' }, actualValues: { email: '1' } },
-          '2': { corruptValues: { name: '1' }, actualValues: { name: '2' } },
-          '3': { corruptValues: { name: '4', email: '4' }, actualValues: { name: '3', email: '3' } },
+          '1': { name: '1', email: '1' },
+          '2': { name: '2', email: '2' },
+          '3': { name: '3', email: '3' },
         },
         missing: {
           '4': { name: '4', email: '4' },
@@ -216,13 +175,13 @@ describe('Report Creating Functions', () => {
         '6': { name: '6', email: '6', extra: '5' },
       };
 
-      const testReport = createReportObject(testOldDB, testNewDB);
+      const testReport = createReportObject(testOldDB, testNewDB, ['extra']);
 
       const expectedReportObject = {
         corrupt: {
-          '1': { corruptValues: { email: '2' }, actualValues: { email: '1' } },
-          '2': { corruptValues: { name: '1' }, actualValues: { name: '2' } },
-          '3': { corruptValues: { name: '4', email: '4' }, actualValues: { name: '3', email: '3' } },
+          '1': { name: '1', email: '1', extra: '1' },
+          '2': { name: '2', email: '2', extra: '2' },
+          '3': { name: '3', email: '3', extra: '3' },
         },
         missing: {
           '4': { name: '4', email: '4' },
