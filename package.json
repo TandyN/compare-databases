@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/TandyN/compare-databases#readme",
   "dependencies": {
+    "csv-writer": "^1.6.0",
     "dotenv": "^10.0.0",
     "pg": "^8.7.1"
   },

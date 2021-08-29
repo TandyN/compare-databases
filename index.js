@@ -1,7 +1,9 @@
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const { oldPool, newPool } = require('./database');
 const { getOneTableName, getAllTableRows, getAllTableColumns } = require('./database/queries');
 const { createReportObject } = require('./utils/createReport');
 const { differentColumns } = require('./utils/compareObjects');
+const { convertObjectToArrayOfObjects } = require('./utils/modifyObjects');
 
 const { convertArrayToObjectWithKeys } = require('./utils/modifyObjects');
 
@@ -24,6 +26,54 @@ const generateReport = async () => {
   const modifiedNewDBRows = convertArrayToObjectWithKeys(newDBRows, 'id');
 
   const reportObject = createReportObject(modifiedOldDBRows, modifiedNewDBRows, differentTableColumns);
+
+  const missingRecordsArray = convertObjectToArrayOfObjects(reportObject.missing, 'id');
+  const corruptRecordsArray = convertObjectToArrayOfObjects(reportObject.corrupt, 'id');
+  const newRecordsArray = convertObjectToArrayOfObjects(reportObject.new, 'id');
+
+  const missingRecordsWriter = createCsvWriter({
+    path: './reports/MissingRecords.csv',
+    header: [
+      { id: 'id', title: 'id' },
+      { id: 'name', title: 'name' },
+      { id: 'email', title: 'email' },
+    ],
+  });
+
+  const corruptRecordsWriter = createCsvWriter({
+    path: './reports/CorruptRecords.csv',
+    header: [
+      { id: 'id', title: 'id' },
+      { id: 'name', title: 'name' },
+      { id: 'email', title: 'email' },
+      { id: 'favorite_flavor', title: 'favorite_flavor' },
+    ],
+  });
+
+  const NewRecordsWriter = createCsvWriter({
+    path: './reports/NewRecords.csv',
+    header: [
+      { id: 'id', title: 'id' },
+      { id: 'name', title: 'name' },
+      { id: 'email', title: 'email' },
+      { id: 'favorite_flavor', title: 'favorite_flavor' },
+    ],
+  });
+
+  missingRecordsWriter.writeRecords(missingRecordsArray)
+    .then(() => {
+      console.log('MissingRecords.csv Generated in reports folder');
+    });
+
+  corruptRecordsWriter.writeRecords(corruptRecordsArray)
+    .then(() => {
+      console.log('CorruptRecords.csv Generated in reports folder');
+    });
+
+  NewRecordsWriter.writeRecords(newRecordsArray)
+    .then(() => {
+      console.log('NewRecords.csv Generated in reports folder');
+    });
 }
 
 generateReport();
