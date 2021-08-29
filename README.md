@@ -15,6 +15,7 @@ You recently migrated data from one database to another. You need to identify if
 - All columns in the old database exist in the new database.
 - There is only 1 table in both databases.
 - There are not more than 100,000 records in each database.
+- Values in columns are not objects.
 
 ## Requirements
 
