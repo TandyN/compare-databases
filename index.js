@@ -1,3 +1,4 @@
+const fs = require('fs');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const { oldPool, newPool } = require('./database');
 const { getOneTableName, getAllTableRows, getAllTableColumns } = require('./database/queries');
@@ -59,6 +60,10 @@ const generateReport = async () => {
       { id: 'favorite_flavor', title: 'favorite_flavor' },
     ],
   });
+
+  if (!fs.existsSync('./reports')) {
+    fs.mkdirSync('./reports');
+  }
 
   missingRecordsWriter.writeRecords(missingRecordsArray)
     .then(() => {
