@@ -7,6 +7,11 @@ const ifObjectsContainSameContent = (obj1, obj2) => {
   return true;
 };
 
+const differentColumns = (oldDBColumns, newDBColumns) => {
+  return newDBColumns.filter(x => oldDBColumns.indexOf(x) === -1);
+}
+
 module.exports = {
   ifObjectsContainSameContent,
+  differentColumns,
 };

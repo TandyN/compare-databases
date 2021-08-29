@@ -1,5 +1,5 @@
 const { expect } = require('@jest/globals');
-const { ifObjectsContainSameContent } = require('./compareObjects');
+const { ifObjectsContainSameContent, differentColumns } = require('./compareObjects');
 
 describe('Compare Object Functions', () => {
   describe('ifObjectsContainSameContent', () => {
@@ -28,6 +28,20 @@ describe('Compare Object Functions', () => {
 
       expect(result1).toBe(false);
       expect(result2).toBe(false);
+    });
+  });
+
+  describe('differentColumns', () => {
+    it('should return the difference between 2 arrays', () => {
+      const arr1 = ['id', 'name', 'email'];
+      const arr2 = ['id', 'name', 'email', 'favorite_flavor'];
+      const arr3 = ['id'];
+
+      const difference1 = differentColumns(arr1, arr2)
+      const difference2 = differentColumns(arr3, arr1)
+
+      expect(difference1).toEqual(expect.arrayContaining(['favorite_flavor']));
+      expect(difference2).toEqual(expect.arrayContaining(['name', 'email']));
     });
   });
 });
