@@ -1,4 +1,7 @@
-const { addToCorrupt } = require('./createReport');
+const {
+  addToCorrupt,
+  addToMissing
+} = require('./createReport');
 
 describe('Report Creating Functions', () => {
   describe('addToCorrupt', () => {
@@ -54,12 +57,34 @@ describe('Report Creating Functions', () => {
             actualValues: { name: 'Tom' },
           },
         },
-      }
+      };
 
       expect(reportObject.corrupt['1'].corruptValues).toMatchObject(expectedResult.corrupt['1'].corruptValues);
       expect(reportObject.corrupt['1'].actualValues).toMatchObject(expectedResult.corrupt['1'].actualValues);
       expect(reportObject.corrupt['2'].corruptValues).toMatchObject(expectedResult.corrupt['2'].corruptValues);
       expect(reportObject.corrupt['2'].actualValues).toMatchObject(expectedResult.corrupt['2'].actualValues);
+    });
+  });
+
+  describe('addToMissing', () => {
+    it(`should set a key from one object to the objReport 'missing' key`, () => {
+      const reportObject = {
+        missing: {},
+      };
+      const objMain = {
+        '1': { name: 'John' },
+        '2': { name: 'Sam' },
+      };
+
+      addToMissing(reportObject, objMain, '1');
+      expect(reportObject.missing['1']).toMatchObject({ name: 'John' });
+      expect(Object.keys(reportObject.missing).length).toBe(1);
+
+      addToMissing(reportObject, objMain, '2');
+
+      expect(reportObject.missing['2']).toMatchObject({ name: 'Sam' });
+      expect(Object.keys(reportObject.missing).length).toBe(2);
+
     });
   });
 });
