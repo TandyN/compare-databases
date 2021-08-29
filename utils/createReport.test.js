@@ -116,9 +116,9 @@ describe('Report Creating Functions', () => {
 
       const expectedReportObject = {
         corrupt: {
-          '1': { corruptValues: { email: '2' }, actualValues: { email: '1' } },
-          '2': { corruptValues: { name: '1' }, actualValues: { name: '2' } },
-          '3': { corruptValues: { name: '4', email: '4' }, actualValues: { name: '3', email: '3' } },
+          '1': { name: '1', email: '1' },
+          '2': { name: '2', email: '2' },
+          '3': { name: '3', email: '3' },
         },
         missing: {},
         new: {},
@@ -145,9 +145,9 @@ describe('Report Creating Functions', () => {
 
       const expectedReportObject = {
         corrupt: {
-          '1': { corruptValues: { email: '2' }, actualValues: { email: '1' } },
-          '2': { corruptValues: { name: '1' }, actualValues: { name: '2' } },
-          '3': { corruptValues: { name: '4', email: '4' }, actualValues: { name: '3', email: '3' } },
+          '1': { name: '1', email: '1' },
+          '2': { name: '2', email: '2' },
+          '3': { name: '3', email: '3' },
         },
         missing: {
           '4': { name: '4', email: '4' },
@@ -175,13 +175,13 @@ describe('Report Creating Functions', () => {
         '6': { name: '6', email: '6', extra: '5' },
       };
 
-      const testReport = createReportObject(testOldDB, testNewDB);
+      const testReport = createReportObject(testOldDB, testNewDB, ['extra']);
 
       const expectedReportObject = {
         corrupt: {
-          '1': { corruptValues: { email: '2' }, actualValues: { email: '1' } },
-          '2': { corruptValues: { name: '1' }, actualValues: { name: '2' } },
-          '3': { corruptValues: { name: '4', email: '4' }, actualValues: { name: '3', email: '3' } },
+          '1': { name: '1', email: '1', extra: '1' },
+          '2': { name: '2', email: '2', extra: '2' },
+          '3': { name: '3', email: '3', extra: '3' },
         },
         missing: {
           '4': { name: '4', email: '4' },
