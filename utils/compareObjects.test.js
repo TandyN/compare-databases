@@ -18,7 +18,7 @@ describe('Compare Object Functions', () => {
       expect(result3).toBe(true);
     });
 
-    it('should return false if object 2 contains does not have the same content as object 1', () => {
+    it('should return false if object 2 does not contain the same content as object 1', () => {
       const testObj1 = { id: 'a', email: '123' };
       const testObj2 = { id: 'a', email: '456' };
       const testObj3 = { id: 'a' };

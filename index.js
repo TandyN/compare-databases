@@ -5,7 +5,6 @@ const { getOneTableName, getAllTableRows, getAllTableColumns } = require('./data
 const { createReportObject } = require('./utils/createReport');
 const { differentColumns } = require('./utils/compareObjects');
 const { convertObjectToArrayOfObjects } = require('./utils/modifyObjects');
-
 const { convertArrayToObjectWithKeys } = require('./utils/modifyObjects');
 
 const generateReport = async () => {
@@ -51,7 +50,7 @@ const generateReport = async () => {
     ],
   });
 
-  const NewRecordsWriter = createCsvWriter({
+  const newRecordsWriter = createCsvWriter({
     path: './reports/NewRecords.csv',
     header: [
       { id: 'id', title: 'id' },
@@ -75,7 +74,7 @@ const generateReport = async () => {
       console.log('CorruptRecords.csv Generated in reports folder');
     });
 
-  NewRecordsWriter.writeRecords(newRecordsArray)
+  newRecordsWriter.writeRecords(newRecordsArray)
     .then(() => {
       console.log('NewRecords.csv Generated in reports folder');
     });
