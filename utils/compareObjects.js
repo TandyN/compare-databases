@@ -1,4 +1,4 @@
-const ifObjectsContainSameContent = (obj1, obj2) => {
+const obj1SubsetOfObj2 = (obj1, obj2) => {
   for (let key in obj1) {
     if (obj1[key] !== obj2[key]) {
       return false;
@@ -12,6 +12,6 @@ const differentColumns = (oldDBColumns, newDBColumns) => {
 }
 
 module.exports = {
-  ifObjectsContainSameContent,
+  obj1SubsetOfObj2,
   differentColumns,
 };

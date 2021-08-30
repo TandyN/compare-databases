@@ -1,4 +1,4 @@
-const { ifObjectsContainSameContent } = require('./compareObjects');
+const { obj1SubsetOfObj2 } = require('./compareObjects');
 
 const addToCorrupt = (objReport, oldDBObject, newDBObject, primaryKey, differentColumns) => {
   objReport.corrupt[primaryKey] = { ...oldDBObject[primaryKey] };
@@ -21,7 +21,7 @@ const createReportObject = (oldDBObject, newDBObject, differentColumns = []) => 
 
   for (let primaryKey in oldDBObject) {
     if (newDBObject[primaryKey]) {
-      if (!ifObjectsContainSameContent(oldDBObject[primaryKey], newDBObject[primaryKey])) {
+      if (!obj1SubsetOfObj2(oldDBObject[primaryKey], newDBObject[primaryKey])) {
         addToCorrupt(reportObject, oldDBObject, newDBObject, primaryKey, differentColumns);
       }
       delete newDBObject[primaryKey];
