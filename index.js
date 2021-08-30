@@ -64,20 +64,11 @@ const generateReport = async () => {
     fs.mkdirSync('./reports');
   }
 
-  missingRecordsWriter.writeRecords(missingRecordsArray)
-    .then(() => {
-      console.log('MissingRecords.csv Generated in reports folder');
-    });
+  await missingRecordsWriter.writeRecords(missingRecordsArray);
+  await corruptRecordsWriter.writeRecords(corruptRecordsArray);
+  await newRecordsWriter.writeRecords(newRecordsArray);
 
-  corruptRecordsWriter.writeRecords(corruptRecordsArray)
-    .then(() => {
-      console.log('CorruptRecords.csv Generated in reports folder');
-    });
-
-  newRecordsWriter.writeRecords(newRecordsArray)
-    .then(() => {
-      console.log('NewRecords.csv Generated in reports folder');
-    });
+  console.log('Successfully created all reports which can be found in the /reports folder');
 }
 
 generateReport();
