@@ -1,4 +1,4 @@
-const getOneTableName = async (pool) => {
+const getTableName = async (pool) => {
   const result = await pool.query(`
     SELECT table_name
     FROM information_schema.tables
@@ -29,7 +29,7 @@ const getAllTableColumns = async (pool, tableName) => {
 };
 
 module.exports = {
-  getOneTableName,
+  getTableName,
   getAllTableRows,
   getAllTableColumns,
 };

@@ -7,9 +7,9 @@ const {
 
 describe('Report Creating Functions', () => {
   describe('addToCorrupt', () => {
-    it(`should add a key to 'corrupt' key and put in actual values that it should contain`, () => {
-      const oldDBObject = { '1': { name: '1', email: '1' } }
-      const newDBObject = { '1': { name: '1', email: '2', extra: '1' } }
+    it(`should add a key to 'corrupt' key in report object and put in actual values that it should contain`, () => {
+      const oldDBObject = { '1': { name: '1', email: '1' } };
+      const newDBObject = { '1': { name: '1', email: '2', extra: '1' } };
       const differntColumns = ['extra'];
 
       const reportObject = {
@@ -75,7 +75,7 @@ describe('Report Creating Functions', () => {
       expect(testReport).toEqual(expectedReportObject);
     });
 
-    it(`should put keys that are found in the new DB and not in the old into the new key of the report object`, () => {
+    it(`should put keys that are found in the new DB but not found in the old DB into the 'new' key of the report object`, () => {
       const testOldDB = {
         '1': { name: '1' },
         '2': { name: '2' },
