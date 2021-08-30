@@ -1,7 +1,7 @@
 const convertArrayToObjectWithKeys = (array, colToKey) => {
   let objectWithKeys = {};
 
-  array.map((objectRow) => {
+  array.forEach((objectRow) => {
     let id = objectRow[colToKey];
     delete objectRow[colToKey];
 

@@ -3,7 +3,7 @@ const { ifObjectsContainSameContent } = require('./compareObjects');
 const addToCorrupt = (objReport, oldDBObject, newDBObject, primaryKey, differentColumns) => {
   objReport.corrupt[primaryKey] = { ...oldDBObject[primaryKey] };
 
-  differentColumns.map((colName) => {
+  differentColumns.forEach((colName) => {
     objReport.corrupt[primaryKey][colName] = newDBObject[primaryKey][colName];
   });
 };
