@@ -1,15 +1,15 @@
 const fs = require('fs');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const { oldPool, newPool } = require('./database');
-const { getOneTableName, getAllTableRows, getAllTableColumns } = require('./database/queries');
+const { getTableName, getAllTableRows, getAllTableColumns } = require('./database/queries');
 const { createReportObject } = require('./utils/createReport');
 const { differentColumns } = require('./utils/compareObjects');
 const { convertObjectToArrayOfObjects } = require('./utils/modifyObjects');
 const { convertArrayToObjectWithKeys } = require('./utils/modifyObjects');
 
 const generateReport = async () => {
-  const oldDBTableName = await getOneTableName(oldPool);
-  const newDBTableName = await getOneTableName(newPool);
+  const oldDBTableName = await getTableName(oldPool);
+  const newDBTableName = await getTableName(newPool);
 
   const oldTableColumns = await getAllTableColumns(oldPool, oldDBTableName.table_name);
   const newTableColumns = await getAllTableColumns(newPool, newDBTableName.table_name);

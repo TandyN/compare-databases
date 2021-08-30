@@ -9,7 +9,7 @@ const obj1SubsetOfObj2 = (obj1, obj2) => {
 
 const differentColumns = (oldDBColumns, newDBColumns) => {
   return newDBColumns.filter(x => oldDBColumns.indexOf(x) === -1);
-}
+};
 
 module.exports = {
   obj1SubsetOfObj2,
